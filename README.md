@@ -1,0 +1,153 @@
+# smart-tech-booking
+موقع حجز المركز التقني الذكي + QR Code
+ <!DOCTYPE html>
+<html lang="ar">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>المركز التقني الذكي - حجز الخدمات</title>
+<style>
+body {
+    font-family: Arial, sans-serif;
+    background: linear-gradient(135deg,#0f172a,#020617);
+    color:white;
+    text-align:center;
+    margin:0;
+    padding:0;
+}
+
+.container {
+    background:#1e293b;
+    padding:30px 25px;
+    border-radius:15px;
+    width:340px;
+    margin:50px auto;
+    box-shadow:0 0 25px #38bdf8;
+}
+
+h1 {
+    color:#38bdf8;
+}
+
+.offer {
+    color:#facc15;
+    font-weight:bold;
+}
+
+input, select {
+    width:95%;
+    padding:12px;
+    margin:10px 0;
+    border-radius:8px;
+    border:none;
+    font-size:14px;
+    outline:none;
+}
+
+input:focus, select:focus {
+    box-shadow:0 0 10px #22c55e;
+}
+
+button {
+    background: linear-gradient(45deg,#22c55e,#16a34a);
+    color:white;
+    padding:12px;
+    width:100%;
+    border:none;
+    border-radius:8px;
+    font-size:16px;
+    cursor:pointer;
+    transition:0.3s;
+}
+
+button:hover {
+    transform: scale(1.05);
+    background: linear-gradient(45deg,#16a34a,#22c55e);
+}
+
+#msg {
+    margin-top:15px;
+    color:#22c55e;
+    font-size:14px;
+}
+
+.footer {
+    margin-top:20px;
+    font-size:12px;
+    color:#94a3b8;
+}
+
+#qrcode {
+    margin-top:20px;
+    width:180px;
+    height:180px;
+    border:5px solid #38bdf8;
+    border-radius:15px;
+}
+</style>
+</head>
+<body>
+
+<div class="container">
+<h1>🚀 المركز التقني الذكي</h1>
+<p class="offer">🔥 عرض خاص لفترة محدودة 🔥</p>
+
+<h3>احجز خدمتك الآن 👇</h3>
+
+<select id="service">
+<option>💻 تصميم موقع</option>
+<option>📊 Excel احترافي</option>
+<option>🎨 تصميم لوغو</option>
+<option>📢 تسويق صفحات</option>
+<option>🐍 سكربت Python</option>
+<option>📡 تصميم شبكة إنترنت</option>
+<option>📶 تقوية WiFi</option>
+</select>
+
+<input type="text" id="name" placeholder="👤 اسمك">
+<input type="tel" id="phone" placeholder="📱 رقمك">
+
+<button onclick="sendOrder()">🚀 احجز الآن</button>
+
+<p id="msg"></p>
+
+<div class="footer">
+📞 0785305117
+</div>
+
+<h3>امسح الباركود للحجز السريع:</h3>
+
+<!-- QR Code ثابت يفتح نفس الصفحة -->
+<img id="qrcode" src="https://api.qrserver.com/v1/create-qr-code/?size=180x180&data=https://bassamadnan771-ops.github.io/smart-tech/" alt="QR Code" />
+
+</div>
+
+<script>
+async function sendOrder(){
+    let name=document.getElementById("name").value;
+    let phone=document.getElementById("phone").value;
+    let service=document.getElementById("service").value;
+
+    if(name=="" || phone==""){
+        alert("⚠️ الرجاء تعبئة جميع البيانات");
+        return;
+    }
+
+    let date = new Date().toLocaleString();
+
+    let message = `🚀 طلب حجز جديد\n\n👤 الاسم: ${name}\n📱 الرقم: ${phone}\n💼 الخدمة: ${service}\n⏱️ الوقت: ${date}\n\n🔥 عميل مهتم`;
+
+    // فتح رسالة واتساب على رقمك
+    let whatsapp = `https://wa.me/962785305117?text=${encodeURIComponent(message)}`;
+    window.open(whatsapp,"_blank");
+
+    document.getElementById("msg").innerText = "✅ تم تحويلك إلى واتساب لإرسال الطلب";
+
+    // تفريغ الحقول
+    document.getElementById("name").value = "";
+    document.getElementById("phone").value = "";
+}
+</script>
+
+</body>
+</html>
