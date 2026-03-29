@@ -1,6 +1,6 @@
 # smart-tech-booking
 موقع حجز المركز التقني الذكي + QR Code
- <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="ar">
 <head>
 <meta charset="UTF-8">
@@ -23,18 +23,25 @@ body {
     width:340px;
     margin:50px auto;
     box-shadow:0 0 25px #38bdf8;
+    transition: transform 0.3s;
+}
+
+.container:hover {
+    transform: scale(1.02);
 }
 
 h1 {
     color:#38bdf8;
+    margin-bottom: 5px;
 }
 
 .offer {
     color:#facc15;
     font-weight:bold;
+    margin-bottom: 15px;
 }
 
-input, select {
+select, input {
     width:95%;
     padding:12px;
     margin:10px 0;
@@ -42,9 +49,10 @@ input, select {
     border:none;
     font-size:14px;
     outline:none;
+    transition:0.2s;
 }
 
-input:focus, select:focus {
+select:focus, input:focus {
     box-shadow:0 0 10px #22c55e;
 }
 
@@ -84,6 +92,12 @@ button:hover {
     border:5px solid #38bdf8;
     border-radius:15px;
 }
+
+/* متجاوبة على الموبايل */
+@media (max-width:400px){
+    .container { width:90%; padding:20px; }
+    button, select, input { font-size:15px; }
+}
 </style>
 </head>
 <body>
@@ -91,7 +105,6 @@ button:hover {
 <div class="container">
 <h1>🚀 المركز التقني الذكي</h1>
 <p class="offer">🔥 عرض خاص لفترة محدودة 🔥</p>
-
 <h3>احجز خدمتك الآن 👇</h3>
 
 <select id="service">
@@ -116,14 +129,12 @@ button:hover {
 </div>
 
 <h3>امسح الباركود للحجز السريع:</h3>
-
-<!-- QR Code ثابت يفتح نفس الصفحة -->
-<img id="qrcode" src="https://api.qrserver.com/v1/create-qr-code/?size=180x180&data=https://bassamadnan771-ops.github.io/smart-tech/" alt="QR Code" />
+<img id="qrcode" src="https://api.qrserver.com/v1/create-qr-code/?size=180x180&data=https://bassamadnan771-ops.github.io/smart-tech-booking/" alt="QR Code" />
 
 </div>
 
 <script>
-async function sendOrder(){
+function sendOrder(){
     let name=document.getElementById("name").value;
     let phone=document.getElementById("phone").value;
     let service=document.getElementById("service").value;
@@ -135,15 +146,14 @@ async function sendOrder(){
 
     let date = new Date().toLocaleString();
 
-    let message = `🚀 طلب حجز جديد\n\n👤 الاسم: ${name}\n📱 الرقم: ${phone}\n💼 الخدمة: ${service}\n⏱️ الوقت: ${date}\n\n🔥 عميل مهتم`;
+    let message = `🚀 طلب حجز جديد\n👤 الاسم: ${name}\n📱 الرقم: ${phone}\n💼 الخدمة: ${service}\n⏱️ الوقت: ${date}`;
 
-    // فتح رسالة واتساب على رقمك
+    // فتح واتساب مباشرة على رقمك
     let whatsapp = `https://wa.me/962785305117?text=${encodeURIComponent(message)}`;
     window.open(whatsapp,"_blank");
 
     document.getElementById("msg").innerText = "✅ تم تحويلك إلى واتساب لإرسال الطلب";
 
-    // تفريغ الحقول
     document.getElementById("name").value = "";
     document.getElementById("phone").value = "";
 }
